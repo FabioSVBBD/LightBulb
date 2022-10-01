@@ -26,6 +26,7 @@ public class GrappleInputManager : MonoBehaviour {
 	private void UpdateInput () {
 		if(Input.GetMouseButtonDown(0))
 		{
+
 			// Find mouse position
 			Vector3 mouseInput = new Vector3(Input.mousePosition.x,Input.mousePosition.y,10);
 			Vector2 mouseClick = cam.ScreenToWorldPoint(mouseInput);

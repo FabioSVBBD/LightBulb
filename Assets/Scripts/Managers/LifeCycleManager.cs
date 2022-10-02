@@ -7,7 +7,7 @@ public class LifeCycleManager
 {
     public enum LifeCycleState
     {
-        Landed, Playing, Paused, GameOver
+        Landed, Playing, GameOver
     }
 
     private LifeCycleState _state;
@@ -57,7 +57,6 @@ public class LifeCycleManager
         {
             { LifeCycleState.Landed, "Home" },
             { LifeCycleState.Playing, "Game" },
-            { LifeCycleState.Paused, "Home" },
             { LifeCycleState.GameOver, "GameOver" }
         };
     }

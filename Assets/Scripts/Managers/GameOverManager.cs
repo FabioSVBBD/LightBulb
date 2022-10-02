@@ -18,6 +18,6 @@ public class GameOverManager : MonoBehaviour
 
     public void onRestart()
     {
-        lifeCycleManager.State = LifeCycleManager.LifeCycleState.Landed;
+        lifeCycleManager.State = LifeCycleManager.LifeCycleState.Playing;
     }
 }

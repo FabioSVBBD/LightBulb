@@ -11,6 +11,7 @@ public class GrappleInputManager : MonoBehaviour {
 	 * i.e 90 means 90 degrees clockwise + 90 counter clockwise.*/
 	[Range(0.0f,360.0f)]
 	public float angleTolerance = 90;
+	private bool isAttached = false;
 	
 	void Start()
 	{
@@ -26,41 +27,44 @@ public class GrappleInputManager : MonoBehaviour {
 	private void UpdateInput () {
 		if(Input.GetMouseButtonDown(0))
 		{
+			if (isAttached)
+            {
+				grapple.ReleaseRope();
+				isAttached = false;
+				return;
+			}
 
 			// Find mouse position
-			Vector3 mouseInput = new Vector3(Input.mousePosition.x,Input.mousePosition.y,10);
+			Vector3 mouseInput = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
 			Vector2 mouseClick = cam.ScreenToWorldPoint(mouseInput);
-			
+
 			// Find ray direction and raycast
 			Vector2 rayDirection = mouseClick - (Vector2)this.transform.position;
-			RaycastHit2D hit = Physics2D.Raycast((Vector2)this.transform.position , rayDirection , grapple.grapplingHookRange, ~(1<<grapple.playerLayer));
+			RaycastHit2D hit = Physics2D.Raycast((Vector2)this.transform.position, rayDirection, grapple.grapplingHookRange, ~(1 << grapple.playerLayer));
 			float angle = angleStep;
 			Quaternion rot;
 
 			// If the raycast does not hit anything, loop raycast until object is hit
-			while(hit.collider == null && angle<angleTolerance)
+			while (hit.collider == null && angle < angleTolerance)
 			{
-				rot = Quaternion.AngleAxis(angle , Vector3.forward);
-				hit = Physics2D.Raycast((Vector2)this.transform.position , rot*rayDirection, grapple.grapplingHookRange, ~(1<<grapple.playerLayer));
-				
-				if(hit.collider!=null)
+				rot = Quaternion.AngleAxis(angle, Vector3.forward);
+				hit = Physics2D.Raycast((Vector2)this.transform.position, rot * rayDirection, grapple.grapplingHookRange, ~(1 << grapple.playerLayer));
+
+				if (hit.collider != null)
 					break;
-				
-				rot = Quaternion.AngleAxis(-angle , Vector3.forward);
-				hit = Physics2D.Raycast((Vector2)this.transform.position , rot*rayDirection, grapple.grapplingHookRange, ~(1<<grapple.playerLayer));
-				angle+=angleStep;
-				
+
+				rot = Quaternion.AngleAxis(-angle, Vector3.forward);
+				hit = Physics2D.Raycast((Vector2)this.transform.position, rot * rayDirection, grapple.grapplingHookRange, ~(1 << grapple.playerLayer));
+				angle += angleStep;
+
 			}
 			// if something is hit, and that is not the player
-			if(hit.collider != null && hit.collider.gameObject.layer != grapple.playerLayer )
+			if (hit.collider != null && hit.collider.gameObject.layer != grapple.playerLayer)
 			{
 				grapple.AttachRope(hit.point);
 			}
-		}
-		// Check for rope release
-		else if(Input.GetMouseButtonUp(1))
-		{
-			grapple.ReleaseRope();
+
+			isAttached = true;
 		}
 
 		// Setting reeling and paying out

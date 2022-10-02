@@ -7,7 +7,6 @@ public class CameraController : MonoBehaviour
     public GameObject player;
     void Start()
     {
-        Debug.Log($"camera {transform}");
     }
 
     void Update()

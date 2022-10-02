@@ -11,13 +11,14 @@ public class GameOverManager : MonoBehaviour
         lifeCycleManager = LifeCycleManager.Instance();
     }
 
-    public void onHome()   
+    public void onHome()
     {
         lifeCycleManager.State = LifeCycleManager.LifeCycleState.Landed;
     }
 
     public void onRestart()
     {
-        lifeCycleManager.State = LifeCycleManager.LifeCycleState.Landed;
+        lifeCycleManager.State = LifeCycleManager.LifeCycleState.Playing;
+        Game.level = Level.CreateLevel(Game.CurrentLevel);
     }
 }

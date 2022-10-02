@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class HomeManager : MonoBehaviour
 {
     LifeCycleManager lifeCycleManager;
 
@@ -11,9 +11,8 @@ public class GameManager : MonoBehaviour
         lifeCycleManager = LifeCycleManager.Instance();
     }
 
-    public void onPause()
+    public void onStart()
     {
-        // For testing purpose, go to gameover, but should go to paused state
-        lifeCycleManager.State = LifeCycleManager.LifeCycleState.GameOver;
+        lifeCycleManager.State = LifeCycleManager.LifeCycleState.LevelSelection;
     }
 }

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HomeManager : MonoBehaviour
+public class LevelsManager : MonoBehaviour
 {
     LifeCycleManager lifeCycleManager;
 
@@ -11,8 +9,10 @@ public class HomeManager : MonoBehaviour
         lifeCycleManager = LifeCycleManager.Instance();
     }
 
-    public void onStart()
+    public void LevelSelected(int level)
     {
+        Game.level = Level.CreateLevel(level);
         lifeCycleManager.State = LifeCycleManager.LifeCycleState.Playing;
+
     }
 }

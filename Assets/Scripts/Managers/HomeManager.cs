@@ -13,6 +13,6 @@ public class HomeManager : MonoBehaviour
 
     public void onStart()
     {
-        lifeCycleManager.State = LifeCycleManager.LifeCycleState.Playing;
+        lifeCycleManager.State = LifeCycleManager.LifeCycleState.LevelSelection;
     }
 }

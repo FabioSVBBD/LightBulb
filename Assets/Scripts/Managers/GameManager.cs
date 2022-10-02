@@ -1,26 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     private LifeCycleManager lifeCycleManager;
     private GameManager gameManager;
-    private Game game;
 
     [SerializeField] GameObject Player;
     [SerializeField] TMPro.TMP_Text scoreField;
     [SerializeField] GameObject PauseMenu;
 
-    private bool IsGamePaused{ get; set; }
+    private bool IsGamePaused;
 
     private void Awake()
     {
         IsGamePaused = false;
         gameManager = this;
-        game = new Game();
         lifeCycleManager = LifeCycleManager.Instance();
-        
+
+        if (Game.level == null)
+        {
+            // For testing
+            Game.level = Level.CreateLevel(Game.CurrentLevel);
+        }
+
+        Game.Start();
+        Time.timeScale = 1;
     }
 
     private void Update()
@@ -33,13 +37,13 @@ public class GameManager : MonoBehaviour
                 GameResumed();
         }
 
-        game.Score = (int)Player.transform.position.x;
-        scoreField.text = game.Score.ToString();
+        Game.Score = (int)Player.transform.position.x;
+        scoreField.text = Game.Score.ToString();
     }
 
     public void GlowbCollided()
     {
-        if (game.IsAlive)
+        if (Game.IsAlive)
             gameManager.GameOver();
     }
 
@@ -60,13 +64,25 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log($"Score: {game.Score}");
-
-
         Time.timeScale = 0;
-        game.Died();
+        Game.Died();
         lifeCycleManager.State = LifeCycleManager.LifeCycleState.GameOver;
     }
 
+    public void NextClicked()
+    {
+        Game.level = Level.CreateLevel(Game.CurrentLevel + 1);
+        // Reload scene with new level (does cleanup)
+        SceneLoader.LoadScene(lifeCycleManager.GetScene());
+    }
+
+    public void LevelsClicked()
+    {
+        lifeCycleManager.State = LifeCycleManager.LifeCycleState.LevelSelection;
+    }
     
+    public void QuitClicked()
+    {
+        lifeCycleManager.State = LifeCycleManager.LifeCycleState.Landed;
+    }
 }

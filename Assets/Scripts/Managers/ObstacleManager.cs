@@ -5,31 +5,60 @@ using UnityEngine;
 public class ObstacleManager : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    [SerializeField] GameObject[] prefabs = new GameObject[3];
+    [SerializeField] GameObject prefab;
+    [SerializeField] GameObject finishLine;
+    [SerializeField] GameObject completionPanel;
 
-    GameObject prefab;
     Transform latestObstacle;
-    GameObject prefabClone;
+    GameObject obstacle;
+
+    private bool IsFinishing = false;
 
     void Start()
     {
-        SpawnObject(player.transform.position.x, player.transform.position.y);
+        SpawnObject(player.transform.position.x);
     }
 
     void Update()
     {
-        if (player.transform.position.x - latestObstacle.transform.position.x > 5f)
+        if (IsFinishing)
         {
-            SpawnObject(player.transform.position.x, player.transform.position.y);
+            if (latestObstacle.transform.position.x <= player.transform.position.x)
+            {
+                completionPanel.SetActive(true);
+                IsFinishing = false;
+                Time.timeScale = 0;
+            }
+
+            return;
+        }
+
+        if (player.transform.position.x - latestObstacle.transform.position.x > Game.level.Latency)
+        {
+            if (Game.level.Obstacles.Count == 0)
+            {
+                SpawnFinishLine(player.transform.position.x);
+                IsFinishing = true;
+                return;
+            }
+
+            SpawnObject(player.transform.position.x);
         }
     }
 
-    public void SpawnObject(float lightPosX, float lightPosY){
-        int prefabIndex = Random.Range(0, 3);
-        prefab = prefabs[prefabIndex];
+    public void SpawnObject(float lightPosX)
+    {
+        Obstacle newObstacle = Game.level.Obstacles.Pop();
+
+        obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, newObstacle.YPos, -1), Quaternion.identity);
+        obstacle.transform.localScale = new Vector2(newObstacle.Width, newObstacle.Height);
         
-        prefabClone = Instantiate(prefab, new Vector3(lightPosX+15f, Random.Range(lightPosY-5f, lightPosY+5f), -1f), Quaternion.identity);
-        prefabClone.transform.localScale = new Vector2(Random.Range(1f, 3f), Random.Range(1f, 3f));
-        latestObstacle = prefabClone.transform;
+        latestObstacle = obstacle.transform;
+    }
+
+    public void SpawnFinishLine(float lightPosX)
+    {
+        obstacle = Instantiate(finishLine, new Vector3(lightPosX + 15, finishLine.transform.position.y, -1), Quaternion.identity);
+        latestObstacle = obstacle.transform;
     }
 }

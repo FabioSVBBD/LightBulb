@@ -7,7 +7,7 @@ public class LifeCycleManager
 {
     public enum LifeCycleState
     {
-        Landed, Playing, GameOver
+        Landed, LevelSelection, Playing, GameOver
     }
 
     private LifeCycleState _state;
@@ -56,6 +56,7 @@ public class LifeCycleManager
         StateSceneMap = new Dictionary<LifeCycleState, string>()
         {
             { LifeCycleState.Landed, "Home" },
+            { LifeCycleState.LevelSelection, "Levels" },
             { LifeCycleState.Playing, "Game" },
             { LifeCycleState.GameOver, "GameOver" }
         };

@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class GlobeFlickerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    Light myLight;
+    GrappleScript _grapple;
+
+    void Awake(){
+        _grapple = GameObject.Find("Player").GetComponent<GrappleScript>();
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+        myLight = GetComponent<Light>();
+    }
+
     void Update()
     {
-        
+        if(_grapple.IsAttached()){
+            myLight.intensity = 9;
+        }
+        else{
+            myLight.intensity = Random.Range(0f, 10f);
+            // myLight.intensity = Mathf.PingPong(Time.time-0.2f, 10);
+        }
     }
 }

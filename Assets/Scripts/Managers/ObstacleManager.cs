@@ -35,7 +35,7 @@ public class ObstacleManager : MonoBehaviour
 
         if (player.transform.position.x - latestObstacle.transform.position.x > Game.level.Latency)
         {
-            if (Game.level.Obstacles.Count == 0)
+            if (Game.level.Obstacles.Count == 0 && !Game.level.Infinite)
             {
                 SpawnFinishLine(player.transform.position.x);
                 IsFinishing = true;
@@ -48,6 +48,18 @@ public class ObstacleManager : MonoBehaviour
 
     public void SpawnObject(float lightPosX)
     {
+        if (Game.level.Infinite)
+        {
+            Obstacle infiniteObstacle = new Obstacle(Random.Range(1, 4), Random.Range(1, 3), Random.Range(-1, 6));
+
+            obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, infiniteObstacle.YPos, 0), Quaternion.identity);
+            obstacle.transform.localScale = new Vector2(infiniteObstacle.Width, infiniteObstacle.Height);
+
+            latestObstacle = obstacle.transform;
+            return;
+        }
+
+
         Obstacle newObstacle = Game.level.Obstacles.Pop();
 
         obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, newObstacle.YPos, 0), Quaternion.identity);

@@ -2,9 +2,11 @@
 {
     public static Level level;
     private static int score;
-    public static int CurrentLevel;
+    public static int CurrentLevel = 1;
 
-    public static int Score { get { return score; } set
+    public static int Score { 
+        get { return score; } 
+        set
         {
             if (value == score)
                 return;

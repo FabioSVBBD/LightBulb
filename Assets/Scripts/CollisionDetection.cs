@@ -8,10 +8,13 @@ public class CollisionDetection : MonoBehaviour
 
     public GameObject breakVersion;
     public float bforce;
+    
 
     protected Rigidbody rb;
 
     private bool active = false;
+
+    public AudioSource shatterSound;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +37,9 @@ public class CollisionDetection : MonoBehaviour
 
     private void EndGame()
     {
+        shatterSound.Play();
         gameManager.GlowbCollided();
+        
     }
 }
 

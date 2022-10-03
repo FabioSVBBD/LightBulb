@@ -40,21 +40,21 @@ public class GrappleInputManager : MonoBehaviour {
 
 			// Find ray direction and raycast
 			Vector2 rayDirection = mouseClick - (Vector2)this.transform.position;
-			RaycastHit2D hit = Physics2D.Raycast((Vector3)this.transform.position, rayDirection, grapple.grapplingHookRange, ~(1 << grapple.playerLayer));
-			float angle = angleStep;
+            bool didHit = Physics.Raycast((Vector3)this.transform.position, rayDirection, out RaycastHit hit, grapple.grapplingHookRange, ~(1 << grapple.playerLayer));
+            float angle = angleStep;
 			Quaternion rot;
 
 			// If the raycast does not hit anything, loop raycast until object is hit
 			while (hit.collider == null && angle < angleTolerance)
 			{
 				rot = Quaternion.AngleAxis(angle, Vector3.forward);
-				hit = Physics2D.Raycast((Vector3)this.transform.position, rot * rayDirection, grapple.grapplingHookRange, ~(1 << grapple.playerLayer));
+				Physics.Raycast((Vector3)this.transform.position, rot * rayDirection, out hit, grapple.grapplingHookRange, ~(1 << grapple.playerLayer));
 
 				if (hit.collider != null)
 					break;
 
 				rot = Quaternion.AngleAxis(-angle, Vector3.forward);
-				hit = Physics2D.Raycast((Vector3)this.transform.position, rot * rayDirection, grapple.grapplingHookRange, ~(1 << grapple.playerLayer));
+				Physics.Raycast((Vector3)this.transform.position, rot * rayDirection, out hit, grapple.grapplingHookRange, ~(1 << grapple.playerLayer));
 				angle += angleStep;
 
 			}

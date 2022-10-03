@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
 
         if (Game.level == null)
         {
-            // For testing
             Game.level = Level.CreateLevel(Game.CurrentLevel);
         }
 
@@ -75,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     public void NextClicked()
     {
-        Game.level = Level.CreateLevel(Game.CurrentLevel + 1);
+        Game.level = Level.CreateLevel(Game.CurrentLevel + 1); // yea not good but whatever. This will support 2billion levels
         // Reload scene with new level (does cleanup)
         SceneLoader.LoadScene(lifeCycleManager.GetScene());
     }

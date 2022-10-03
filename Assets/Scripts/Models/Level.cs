@@ -1,18 +1,25 @@
 ﻿/* A level has obstacles, and a frequency at which the obstacles are sent */
 using System.Collections.Generic;
-
 using UnityEngine;
 
 internal class Level
 {
     public Stack<Obstacle> Obstacles; // The obstacle the user will have to avoid
     public double Latency; // The latency between two of the obstacles
+    public bool Infinite;
 
     public Level(Stack<Obstacle> obstacles, double latency = 5)
     {
         if (obstacles != null)
             Obstacles = obstacles;
 
+        Latency = latency;
+    }
+
+    public Level(double latency)
+    {
+        Infinite = true;
+        Obstacles = new Stack<Obstacle>();
         Latency = latency;
     }
 
@@ -24,7 +31,7 @@ internal class Level
 
         for (int i = 0; i < levelLength; i++)
         {
-            obstacles.Push(new Obstacle(2, 2, 3)); // TODO
+            obstacles.Push(new Obstacle(2, 2, 3));
         }
 
         return new Level(obstacles, latency);
@@ -68,8 +75,7 @@ internal class Level
 
     public static Level CreateEndlessMode()
     {
-        // TODO: prob a flag
-        return CreateLevel2();
+        return new Level(10);
     }
 
     public static Level CreateLevel(int index)

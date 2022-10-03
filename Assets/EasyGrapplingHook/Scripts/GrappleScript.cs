@@ -17,7 +17,7 @@ public class GrappleScript : MonoBehaviour {
 	private float ropeLength;							// Total length of rope
 
 
-	public Vector2 pivotPoint;							// Current active pivot
+	public Vector3 pivotPoint;							// Current active pivot
 	private List<Vector3> pivotList;					// List of all rope bends
 	private List<bool> currentSwingDirection;           // Keeps Track of the direction of each bend
 
@@ -33,15 +33,15 @@ public class GrappleScript : MonoBehaviour {
 	private Rigidbody rigid_body;						// Player rigidbody
 
 	
-	private Vector2 vectorToPivot;						// Vector towards grapple/ropebend
+	private Vector3 vectorToPivot;						// Vector towards grapple/ropebend
 	private float distanceToPivot;						// Distance to grapple/rope bend
-	private Vector2 directionToPivot;					// Unit vector from player to grapple/ropebend
+	private Vector3 directionToPivot;					// Unit vector from player to grapple/ropebend
 
 	public float ropeBendTolerance = 0.01f;				// Minimum distance rope bends can be added
 	public float grapplingHookRange = 100f;				// Max range the grappling can be fired
 	public int playerLayer = 8;							// Layer the player gameobject is on
 	public bool autoSetLayer = true;
-	public Vector2 ropeBasePoint = new Vector2(0,0);	// Point on the player the rope is attached - local space
+	public Vector3 ropeBasePoint = new Vector3(0,0);	// Point on the player the rope is attached - local space
 	public bool allowRotation = true;				// Set orientation of player towards rope
 	public bool ropeCollisions = true;					// Can the rope collide with objects
 	public float strength = 1;
@@ -79,21 +79,21 @@ public class GrappleScript : MonoBehaviour {
 			if(ropeCollisions) // If rope collisions with world are enabled
 			{
 				//vector from player center to pivot point
-				vectorToPivot = (Vector2)(pivotList[pivotList.Count-1] - this.transform.position);	
+				vectorToPivot = (Vector3)(pivotList[pivotList.Count-1] - this.transform.position);	
 				//Distance to pivot
 				distanceToPivot = vectorToPivot.magnitude;
 				//unit vector in directon of pivot
 				directionToPivot = vectorToPivot.normalized;
 				
 				// Raycast from player to pivot point - checking line of sight
-				RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position,
-				                                     directionToPivot,distanceToPivot , ~(1<<playerLayer));
+				Physics.Raycast((Vector3)transform.position,
+				                                     directionToPivot, out RaycastHit hit, distanceToPivot, ~(1<<playerLayer));
 				
 
 				if(hit.collider!=null)	// if raycast hits
 				{
 
-					if(	Vector2.Distance(hit.point,pivotList[pivotList.Count-1]) > ropeBendTolerance ) 
+					if(Vector3.Distance(hit.point,pivotList[pivotList.Count-1]) > ropeBendTolerance ) 
 					// If hit point meets bend requirements
 					{
 						// Then add bend
@@ -124,13 +124,13 @@ public class GrappleScript : MonoBehaviour {
 			}
 
 			//vector from player center to pivot point
-			vectorToPivot = (Vector2)(pivotList[pivotList.Count-1] - this.transform.position);	
+			vectorToPivot = (Vector3)(pivotList[pivotList.Count-1] - this.transform.position);	
 			//Distance to pivot
 			distanceToPivot = vectorToPivot.magnitude;
 			//unit vector in directon of pivot
 			directionToPivot = vectorToPivot.normalized;
 			// Speed in the direction of the rope
-			float speedTowardsPivot = Vector2.Dot(rigid_body.velocity, directionToPivot);
+			float speedTowardsPivot = Vector3.Dot(rigid_body.velocity, directionToPivot);
 
 			NeutraliseGravity();
 
@@ -139,7 +139,7 @@ public class GrappleScript : MonoBehaviour {
 			   distanceToPivot >= ropeLength)
 			{
 				// Cancel out gravity in direction of rope
-				rigid_body.AddForce(directionToPivot* Vector2.Dot(Physics2D.gravity , directionToPivot)*-1);
+				rigid_body.AddForce(directionToPivot* Vector3.Dot(Physics.gravity , directionToPivot)*-1);
 				// Cancelling speed in direction of rope 
 				rigid_body.velocity = GetComponent<Rigidbody>().velocity - (Vector3)(speedTowardsPivot*directionToPivot);
 			}
@@ -202,7 +202,7 @@ public class GrappleScript : MonoBehaviour {
 		}
 	}
 	
-	void AddRopeBend(RaycastHit2D hit)
+	void AddRopeBend(RaycastHit hit)
 	{
 		// Calculate direction from object center to hit point
 		Vector3 direc = (Vector3)hit.point - hit.transform.position;
@@ -250,7 +250,7 @@ public class GrappleScript : MonoBehaviour {
 
 	void NeutraliseGravity()
 	{
-		rigid_body.AddForce(directionToPivot * Vector3.Dot(Physics2D.gravity * gravityScale * strength , directionToPivot) *-1);
+		rigid_body.AddForce(directionToPivot * Vector3.Dot(Physics.gravity * gravityScale * strength , directionToPivot) *-1);
 	}
 
 }

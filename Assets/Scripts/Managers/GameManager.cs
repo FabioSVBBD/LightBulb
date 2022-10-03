@@ -44,7 +44,11 @@ public class GameManager : MonoBehaviour
     public void GlowbCollided()
     {
         if (Game.IsAlive)
-            gameManager.GameOver();
+        {
+            Player.SetActive(false);
+            Invoke("GameOver", 2f);
+        }
+         
     }
 
     public void GamePaused()

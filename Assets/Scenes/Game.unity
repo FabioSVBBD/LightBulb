@@ -1330,10 +1330,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 944440973560434849, guid: baef4728272fb984996373f3ba211bbc, type: 3}
+      propertyPath: m_Range
+      value: 7.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 944440973560434849, guid: baef4728272fb984996373f3ba211bbc, type: 3}
+      propertyPath: m_Intensity
+      value: 8.5
+      objectReference: {fileID: 0}
     - target: {fileID: 944440974154454925, guid: baef4728272fb984996373f3ba211bbc, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 481412380}
+    - target: {fileID: 944440974154454927, guid: baef4728272fb984996373f3ba211bbc, type: 3}
+      propertyPath: grapplingHookRange
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3544923222471947661, guid: baef4728272fb984996373f3ba211bbc, type: 3}
       propertyPath: m_RootOrder
       value: 2

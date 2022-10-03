@@ -50,7 +50,7 @@ public class ObstacleManager : MonoBehaviour
     {
         Obstacle newObstacle = Game.level.Obstacles.Pop();
 
-        obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, newObstacle.YPos, -1), Quaternion.identity);
+        obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, newObstacle.YPos, 0), Quaternion.identity);
         obstacle.transform.localScale = new Vector2(newObstacle.Width, newObstacle.Height);
         
         latestObstacle = obstacle.transform;

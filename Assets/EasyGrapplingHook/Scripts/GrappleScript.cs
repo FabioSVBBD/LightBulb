@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent (typeof(LineRenderer))]
-[RequireComponent (typeof(Rigidbody2D))]
+[RequireComponent (typeof(Rigidbody))]
 
 public class GrappleScript : MonoBehaviour {
 	
@@ -19,7 +19,9 @@ public class GrappleScript : MonoBehaviour {
 
 	public Vector2 pivotPoint;							// Current active pivot
 	private List<Vector3> pivotList;					// List of all rope bends
-	private List<bool> currentSwingDirection;			// Keeps Track of the direction of each bend
+	private List<bool> currentSwingDirection;           // Keeps Track of the direction of each bend
+
+	public float gravityScale = 0.7f;
 
 
 	public float reelInSpeed = 1;						// Speed in which you shorten the rope
@@ -28,7 +30,7 @@ public class GrappleScript : MonoBehaviour {
 	public bool paying_out = false;						// Are you currently extending the rope
 	
 	private LineRenderer rope;							// Rope renderer	
-	private Rigidbody2D rigid_body;						// Player rigidbody
+	private Rigidbody rigid_body;						// Player rigidbody
 
 	
 	private Vector2 vectorToPivot;						// Vector towards grapple/ropebend
@@ -55,7 +57,7 @@ public class GrappleScript : MonoBehaviour {
 		currentSwingDirection = new List<bool>();
 		
 		// Store rigidbody reference
-		rigid_body = this.GetComponent<Rigidbody2D>();
+		rigid_body = this.GetComponent<Rigidbody>();
 
 		if(autoSetLayer)
 			playerLayer = this.gameObject.layer;
@@ -139,13 +141,13 @@ public class GrappleScript : MonoBehaviour {
 				// Cancel out gravity in direction of rope
 				rigid_body.AddForce(directionToPivot* Vector2.Dot(Physics2D.gravity , directionToPivot)*-1);
 				// Cancelling speed in direction of rope 
-				rigid_body.velocity = GetComponent<Rigidbody2D>().velocity - (Vector2)(speedTowardsPivot*directionToPivot);
+				rigid_body.velocity = GetComponent<Rigidbody>().velocity - (Vector3)(speedTowardsPivot*directionToPivot);
 			}
 			if(reeling_in)	// If currently reeling in
 			{
 				if(speedTowardsPivot <= reelInSpeed) { // If speed towards grapple point is less than reeling speed
 					// Add reeling speed
-					rigid_body.velocity = GetComponent<Rigidbody2D>().velocity + (Vector2)(reelInSpeed*directionToPivot);
+					rigid_body.velocity = GetComponent<Rigidbody>().velocity + (Vector3)(reelInSpeed*directionToPivot);
 					
 				}
 				// Shorten rope length by reeling speed
@@ -155,7 +157,7 @@ public class GrappleScript : MonoBehaviour {
 			{
 				if(speedTowardsPivot <= payOutSpeed) {	// If speed is less than payout speed
 					// Add paying out velocity
-					rigid_body.velocity = GetComponent<Rigidbody2D>().velocity - (Vector2)(payOutSpeed*directionToPivot);
+					rigid_body.velocity = GetComponent<Rigidbody>().velocity - (Vector3)(payOutSpeed*directionToPivot);
 					
 				}
 				// Lengthen rope by paying out speed
@@ -164,7 +166,7 @@ public class GrappleScript : MonoBehaviour {
 			}
 			// If player orientation towards rope is active
 			if(!allowRotation)
-			transform.rotation = Quaternion.FromToRotation(Vector2.up,directionToPivot);
+			transform.rotation = Quaternion.FromToRotation(Vector3.up,directionToPivot);
 		}
 	}
 	
@@ -175,7 +177,7 @@ public class GrappleScript : MonoBehaviour {
 	
 	public void SetRopeLength()
 	{
-		ropeLength = Vector2.Distance(pivotList[pivotList.Count-1],this.transform.position);
+		ropeLength = Vector3.Distance(pivotList[pivotList.Count-1],this.transform.position);
 	}
 	void renderRope()
 	{
@@ -211,10 +213,10 @@ public class GrappleScript : MonoBehaviour {
 	bool isBendClockwise()
 	{
 		// Store player positition
-		Vector2 playerPos = transform.position;
+		Vector3 playerPos = transform.position;
 		// Calculate direction of bend
-		Vector2 vectorPlayerToCurrentPivot = (Vector2)pivotList[pivotList.Count-1] - playerPos;
-		Vector2 vectorCurrentPivotToLastPivot = pivotList[pivotList.Count-2] - pivotList[pivotList.Count-1];
+		Vector3 vectorPlayerToCurrentPivot = (Vector3)pivotList[pivotList.Count-1] - playerPos;
+		Vector3 vectorCurrentPivotToLastPivot = pivotList[pivotList.Count-2] - pivotList[pivotList.Count-1];
 		float dot = (vectorPlayerToCurrentPivot.y*vectorCurrentPivotToLastPivot.x - vectorPlayerToCurrentPivot.x*vectorCurrentPivotToLastPivot.y);
 		return dot<0;
 	}
@@ -229,8 +231,8 @@ public class GrappleScript : MonoBehaviour {
 
 		if(allowRotation)
 			return;
-		rigid_body.constraints = RigidbodyConstraints2D.FreezeRotation;
-		rigid_body.constraints = RigidbodyConstraints2D.None;
+		rigid_body.constraints = RigidbodyConstraints.FreezeRotation;
+		rigid_body.constraints = RigidbodyConstraints.FreezePositionZ;
 	}
 	public void AttachRope(Vector2 grapplePoint)
 	{
@@ -248,7 +250,7 @@ public class GrappleScript : MonoBehaviour {
 
 	void NeutraliseGravity()
 	{
-		rigid_body.AddForce(directionToPivot * Vector2.Dot(Physics2D.gravity * rigid_body.gravityScale * strength , directionToPivot) *-1);
+		rigid_body.AddForce(directionToPivot * Vector3.Dot(Physics2D.gravity * gravityScale * strength , directionToPivot) *-1);
 	}
 
 }

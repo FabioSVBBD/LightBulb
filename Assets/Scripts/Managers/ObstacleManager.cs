@@ -52,9 +52,11 @@ public class ObstacleManager : MonoBehaviour
 
     public void SpawnObject(float lightPosX)
     {
+
         if (Game.level.Infinite)
         {
             Obstacle infiniteObstacle = new Obstacle(Random.Range(1, 4), Random.Range(1, 3), Random.Range(-1, 6));
+
 
             obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, infiniteObstacle.YPos, 0), Quaternion.identity);
             obstacle.transform.localScale = new Vector2(infiniteObstacle.Width, infiniteObstacle.Height);
@@ -62,6 +64,7 @@ public class ObstacleManager : MonoBehaviour
             latestObstacle = obstacle.transform;
             return;
         }
+
 
         if(Game.level.Obstacles.Count > 0)
         {
@@ -72,6 +75,7 @@ public class ObstacleManager : MonoBehaviour
             
             latestObstacle = obstacle.transform;
         }
+
     }
 
     public void SpawnFinishLine(float lightPosX)

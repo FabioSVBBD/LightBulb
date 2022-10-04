@@ -1,4 +1,4 @@
-﻿/* Copyright (C) Tool Games - All Rights Reserved
+/*Copyright(C) Tool Games - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
  * Written by Keelan Moore <km.keelan@gmail.com>, June 2015
@@ -7,93 +7,95 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent (typeof(LineRenderer))]
-[RequireComponent (typeof(Rigidbody))]
+[RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(Rigidbody))]
 
-public class GrappleScript : MonoBehaviour {
-	
-	private bool pivotAttached = false;					// Are you currently swinging
-	
-	private float ropeLength;							// Total length of rope
+public class GrappleScript : MonoBehaviour
+{
+
+	private bool pivotAttached = false;                 // Are you currently swinging
+
+	private float ropeLength;                           // Total length of rope
 
 
-	public Vector3 pivotPoint;							// Current active pivot
-	private List<Vector3> pivotList;					// List of all rope bends
+	public Vector3 pivotPoint;                          // Current active pivot
+	private List<Vector3> pivotList;                    // List of all rope bends
 	private List<bool> currentSwingDirection;           // Keeps Track of the direction of each bend
 
 	public float gravityScale = 0.7f;
 
 
-	public float reelInSpeed = 1;						// Speed in which you shorten the rope
-	public float payOutSpeed = 1;						// Speed in which you lengthen the rope
-	public bool reeling_in = false;						// Are you currently shortening the rope
-	public bool paying_out = false;						// Are you currently extending the rope
-	
-	private LineRenderer rope;							// Rope renderer	
-	private Rigidbody rigid_body;						// Player rigidbody
+	public float reelInSpeed = 1;                       // Speed in which you shorten the rope
+	public float payOutSpeed = 1;                       // Speed in which you lengthen the rope
+	public bool reeling_in = false;                     // Are you currently shortening the rope
+	public bool paying_out = false;                     // Are you currently extending the rope
 
-	
-	private Vector3 vectorToPivot;						// Vector towards grapple/ropebend
-	private float distanceToPivot;						// Distance to grapple/rope bend
-	private Vector3 directionToPivot;					// Unit vector from player to grapple/ropebend
+	private LineRenderer rope;                          // Rope renderer	
+	private Rigidbody rigid_body;                       // Player rigidbody
 
-	public float ropeBendTolerance = 0.01f;				// Minimum distance rope bends can be added
-	public float grapplingHookRange = 100f;				// Max range the grappling can be fired
-	public int playerLayer = 8;							// Layer the player gameobject is on
+
+	private Vector3 vectorToPivot;                      // Vector towards grapple/ropebend
+	private float distanceToPivot;                      // Distance to grapple/rope bend
+	private Vector3 directionToPivot;                   // Unit vector from player to grapple/ropebend
+
+	public float ropeBendTolerance = 0.01f;             // Minimum distance rope bends can be added
+	public float grapplingHookRange = 100f;             // Max range the grappling can be fired
+	public int playerLayer = 8;                         // Layer the player gameobject is on
 	public bool autoSetLayer = true;
-	public Vector3 ropeBasePoint = new Vector3(0,0);	// Point on the player the rope is attached - local space
-	public bool allowRotation = true;				// Set orientation of player towards rope
-	public bool ropeCollisions = true;					// Can the rope collide with objects
+	public Vector3 ropeBasePoint = new Vector3(0, 0);   // Point on the player the rope is attached - local space
+	public bool allowRotation = true;               // Set orientation of player towards rope
+	public bool ropeCollisions = true;                  // Can the rope collide with objects
 	public float strength = 1;
 	void Start()
 	{
 		// Initialise rope renderer
 		rope = GetComponent<LineRenderer>();
-		rope.SetPosition(0,transform.position);
-		rope.SetPosition(1,transform.position);
+		rope.SetPosition(0, transform.position);
+		rope.SetPosition(1, transform.position);
 
 		// Initialise lists
 		pivotList = new List<Vector3>();
 		currentSwingDirection = new List<bool>();
-		
+
 		// Store rigidbody reference
 		rigid_body = this.GetComponent<Rigidbody>();
 
-		if(autoSetLayer)
+		if (autoSetLayer)
 			playerLayer = this.gameObject.layer;
 	}
 
-	void FixedUpdate () {
+	void FixedUpdate()
+	{
 
 
-		
-		if(pivotAttached)	// If currently swinging
+
+		if (pivotAttached)  // If currently swinging
 		{
 			// If start swing, add grapple point
-			if(pivotList.Count==0)
+			if (pivotList.Count == 0)
 			{
 				pivotList.Add(pivotPoint);
 				SetRopeLength();
 			}
 
-			if(ropeCollisions) // If rope collisions with world are enabled
+			if (ropeCollisions) // If rope collisions with world are enabled
 			{
 				//vector from player center to pivot point
-				vectorToPivot = (Vector3)(pivotList[pivotList.Count-1] - this.transform.position);	
+				vectorToPivot = (Vector3)(pivotList[pivotList.Count - 1] - this.transform.position);
 				//Distance to pivot
 				distanceToPivot = vectorToPivot.magnitude;
 				//unit vector in directon of pivot
 				directionToPivot = vectorToPivot.normalized;
-				
+
 				// Raycast from player to pivot point - checking line of sight
 				Physics.Raycast((Vector3)transform.position,
-				                                     directionToPivot, out RaycastHit hit, distanceToPivot, ~(1<<playerLayer));
-				
+													 directionToPivot, out RaycastHit hit, distanceToPivot, ~(1 << playerLayer));
 
-				if(hit.collider!=null)	// if raycast hits
+
+				if (hit.collider != null)   // if raycast hits
 				{
 
-					if(Vector3.Distance(hit.point,pivotList[pivotList.Count-1]) > ropeBendTolerance ) 
+					if (Vector3.Distance(hit.point, pivotList[pivotList.Count - 1]) > ropeBendTolerance)
 					// If hit point meets bend requirements
 					{
 						// Then add bend
@@ -107,16 +109,16 @@ public class GrappleScript : MonoBehaviour {
 
 					}
 				}
-				
+
 				// if the rope has bends in it
-				if(currentSwingDirection.Count>0)
+				if (currentSwingDirection.Count > 0)
 				{
 					// if the rope bend has changed direction, then remove bend
-					if(currentSwingDirection[currentSwingDirection.Count-1]!= isBendClockwise())
+					if (currentSwingDirection[currentSwingDirection.Count - 1] != isBendClockwise())
 					{
 						// Remove inactive pivot and bend direction
-						pivotList.RemoveAt(pivotList.Count-1);
-						currentSwingDirection.RemoveAt(currentSwingDirection.Count-1);
+						pivotList.RemoveAt(pivotList.Count - 1);
+						currentSwingDirection.RemoveAt(currentSwingDirection.Count - 1);
 						// Reset rope length
 						SetRopeLength();
 					}
@@ -124,7 +126,7 @@ public class GrappleScript : MonoBehaviour {
 			}
 
 			//vector from player center to pivot point
-			vectorToPivot = (Vector3)(pivotList[pivotList.Count-1] - this.transform.position);	
+			vectorToPivot = (Vector3)(pivotList[pivotList.Count - 1] - this.transform.position);
 			//Distance to pivot
 			distanceToPivot = vectorToPivot.magnitude;
 			//unit vector in directon of pivot
@@ -135,61 +137,63 @@ public class GrappleScript : MonoBehaviour {
 			NeutraliseGravity();
 
 			// If moving away from pivot and distance to pivot is greater than rope length
-			if(speedTowardsPivot<=0 &&
+			if (speedTowardsPivot <= 0 &&
 			   distanceToPivot >= ropeLength)
 			{
 				// Cancel out gravity in direction of rope
-				rigid_body.AddForce(directionToPivot* Vector3.Dot(Physics.gravity , directionToPivot)*-1);
+				rigid_body.AddForce(directionToPivot * Vector3.Dot(Physics.gravity, directionToPivot) * -1);
 				// Cancelling speed in direction of rope 
-				rigid_body.velocity = GetComponent<Rigidbody>().velocity - (Vector3)(speedTowardsPivot*directionToPivot);
+				rigid_body.velocity = GetComponent<Rigidbody>().velocity - (Vector3)(speedTowardsPivot * directionToPivot);
 			}
-			if(reeling_in)	// If currently reeling in
+			if (reeling_in) // If currently reeling in
 			{
-				if(speedTowardsPivot <= reelInSpeed) { // If speed towards grapple point is less than reeling speed
-					// Add reeling speed
-					rigid_body.velocity = GetComponent<Rigidbody>().velocity + (Vector3)(reelInSpeed*directionToPivot);
-					
+				if (speedTowardsPivot <= reelInSpeed)
+				{ // If speed towards grapple point is less than reeling speed
+				  // Add reeling speed
+					rigid_body.velocity = GetComponent<Rigidbody>().velocity + (Vector3)(reelInSpeed * directionToPivot);
+
 				}
 				// Shorten rope length by reeling speed
-				ropeLength = ropeLength - reelInSpeed*Time.deltaTime*1.3f;
+				ropeLength = ropeLength - reelInSpeed * Time.deltaTime * 1.3f;
 			}
-			else if(paying_out)	// If paying out rope
+			else if (paying_out)    // If paying out rope
 			{
-				if(speedTowardsPivot <= payOutSpeed) {	// If speed is less than payout speed
+				if (speedTowardsPivot <= payOutSpeed)
+				{   // If speed is less than payout speed
 					// Add paying out velocity
-					rigid_body.velocity = GetComponent<Rigidbody>().velocity - (Vector3)(payOutSpeed*directionToPivot);
-					
+					rigid_body.velocity = GetComponent<Rigidbody>().velocity - (Vector3)(payOutSpeed * directionToPivot);
+
 				}
 				// Lengthen rope by paying out speed
-				ropeLength = ropeLength + payOutSpeed*Time.deltaTime;
+				ropeLength = ropeLength + payOutSpeed * Time.deltaTime;
 
 			}
 			// If player orientation towards rope is active
-			if(!allowRotation)
-			transform.rotation = Quaternion.FromToRotation(Vector3.up,directionToPivot);
+			if (!allowRotation)
+				transform.rotation = Quaternion.FromToRotation(Vector3.up, directionToPivot);
 		}
 	}
-	
+
 	void Update()
 	{
-		renderRope();	
+		renderRope();
 	}
-	
+
 	public void SetRopeLength()
 	{
-		ropeLength = Vector3.Distance(pivotList[pivotList.Count-1],this.transform.position);
+		ropeLength = Vector3.Distance(pivotList[pivotList.Count - 1], this.transform.position);
 	}
 	void renderRope()
 	{
-		if(pivotAttached)
+		if (pivotAttached)
 		{
 			// Set initial rope points
-			rope.SetVertexCount(1+pivotList.Count);
-			rope.SetPosition(0,transform.TransformPoint(ropeBasePoint));
+			rope.SetVertexCount(1 + pivotList.Count);
+			rope.SetPosition(0, transform.TransformPoint(ropeBasePoint));
 			// Loop over rope bends, add positions
-			for(int i = 0 ; i<pivotList.Count; i++)
+			for (int i = 0; i < pivotList.Count; i++)
 			{
-				rope.SetPosition(i+1,pivotList[pivotList.Count-1-i]);
+				rope.SetPosition(i + 1, pivotList[pivotList.Count - 1 - i]);
 			}
 		}
 		else
@@ -198,29 +202,29 @@ public class GrappleScript : MonoBehaviour {
 			pivotList.Clear();
 			currentSwingDirection.Clear();
 			rope.SetVertexCount(1);
-			rope.SetPosition(0,transform.position);
+			rope.SetPosition(0, transform.position);
 		}
 	}
-	
+
 	void AddRopeBend(RaycastHit hit)
 	{
 		// Calculate direction from object center to hit point
 		Vector3 direc = (Vector3)hit.point - hit.transform.position;
 		// Move pivot point margenally outside object
-		pivotPoint =  hit.transform.position + direc.normalized*(direc.magnitude + 0.01f);
+		pivotPoint = hit.transform.position + direc.normalized * (direc.magnitude + 0.01f);
 	}
-	
+
 	bool isBendClockwise()
 	{
 		// Store player positition
 		Vector3 playerPos = transform.position;
 		// Calculate direction of bend
-		Vector3 vectorPlayerToCurrentPivot = (Vector3)pivotList[pivotList.Count-1] - playerPos;
-		Vector3 vectorCurrentPivotToLastPivot = pivotList[pivotList.Count-2] - pivotList[pivotList.Count-1];
-		float dot = (vectorPlayerToCurrentPivot.y*vectorCurrentPivotToLastPivot.x - vectorPlayerToCurrentPivot.x*vectorCurrentPivotToLastPivot.y);
-		return dot<0;
+		Vector3 vectorPlayerToCurrentPivot = (Vector3)pivotList[pivotList.Count - 1] - playerPos;
+		Vector3 vectorCurrentPivotToLastPivot = pivotList[pivotList.Count - 2] - pivotList[pivotList.Count - 1];
+		float dot = (vectorPlayerToCurrentPivot.y * vectorCurrentPivotToLastPivot.x - vectorPlayerToCurrentPivot.x * vectorCurrentPivotToLastPivot.y);
+		return dot < 0;
 	}
-	
+
 	public void AddPivot(Vector3 newPivot)
 	{
 		pivotList.Add(newPivot);
@@ -229,7 +233,7 @@ public class GrappleScript : MonoBehaviour {
 	{
 		pivotAttached = false;
 
-		if(allowRotation)
+		if (allowRotation)
 			return;
 		rigid_body.constraints = RigidbodyConstraints.FreezeRotation;
 		rigid_body.constraints = RigidbodyConstraints.FreezePositionZ;
@@ -250,7 +254,12 @@ public class GrappleScript : MonoBehaviour {
 
 	void NeutraliseGravity()
 	{
-		rigid_body.AddForce(directionToPivot * Vector3.Dot(Physics.gravity * gravityScale * strength , directionToPivot) *-1);
+		rigid_body.AddForce(directionToPivot * Vector3.Dot(Physics.gravity * gravityScale * strength, directionToPivot) * -1);
+	}
+
+	public bool IsAttached()
+	{
+		return this.pivotAttached;
 	}
 
 }

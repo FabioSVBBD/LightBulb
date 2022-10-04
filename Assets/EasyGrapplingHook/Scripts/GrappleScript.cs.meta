@@ -1,12 +1,7 @@
 fileFormatVersion: 2
 guid: baf5b501c18f5d049b450b4037266090
-labels:
-- GrapplingHook
-- 2DPhysics
-- 2DPlatformer
-timeCreated: 1434377254
-licenseType: Store
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
   defaultReferences: []
   executionOrder: 0

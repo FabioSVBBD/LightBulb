@@ -253,4 +253,8 @@ public class GrappleScript : MonoBehaviour {
 		rigid_body.AddForce(directionToPivot * Vector3.Dot(Physics.gravity * gravityScale * strength , directionToPivot) *-1);
 	}
 
+	public bool IsAttached(){
+		return this.pivotAttached;
+	}
+
 }

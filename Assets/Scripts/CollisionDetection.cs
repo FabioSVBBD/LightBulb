@@ -26,7 +26,8 @@ public class CollisionDetection : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!active)
+        Debug.Log(rb.velocity.magnitude);
+        if (rb.velocity.magnitude > bforce && !active)
         {
             active = true;
             Instantiate(breakVersion, transform.position, transform.rotation);

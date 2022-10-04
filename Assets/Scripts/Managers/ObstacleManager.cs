@@ -53,7 +53,7 @@ public class ObstacleManager : MonoBehaviour
             Obstacle infiniteObstacle = new Obstacle(Random.Range(1, 4), Random.Range(1, 3), Random.Range(-1, 6));
 
             obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, infiniteObstacle.YPos, 0), Quaternion.identity);
-            obstacle.transform.localScale = new Vector2(infiniteObstacle.Width, infiniteObstacle.Height);
+            obstacle.transform.localScale = new Vector3(infiniteObstacle.Width, infiniteObstacle.Height,10);
 
             latestObstacle = obstacle.transform;
             return;
@@ -63,7 +63,7 @@ public class ObstacleManager : MonoBehaviour
         Obstacle newObstacle = Game.level.Obstacles.Pop();
 
         obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, newObstacle.YPos, 0), Quaternion.identity);
-        obstacle.transform.localScale = new Vector2(newObstacle.Width, newObstacle.Height);
+        obstacle.transform.localScale = new Vector3(newObstacle.Width, newObstacle.Height, 10);
         
         latestObstacle = obstacle.transform;
     }

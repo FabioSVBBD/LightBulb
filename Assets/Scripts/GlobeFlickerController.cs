@@ -18,12 +18,13 @@ public class GlobeFlickerController : MonoBehaviour
 
     void Update()
     {
+        
         if(_grapple.IsAttached()){
             myLight.intensity = 9;
         }
         else{
-            myLight.intensity = Random.Range(0f, 10f);
-            // myLight.intensity = Mathf.PingPong(Time.time-0.2f, 10);
+            // myLight.intensity = Random.Range(0f, 10f);
+            myLight.intensity = Mathf.PingPong(Time.time*Random.Range(1f, 3f), 2)+7;
         }
     }
 }

@@ -43,7 +43,6 @@ public class BackgroundScroller : MonoBehaviour
 
     void FixedUpdate()
     {
-
         for (int i = 0; i < backgrounds.Length; i++)
         {
             float parallax = (previousCamPos.x - cam.position.x) * parallaxScales[i];
@@ -54,7 +53,7 @@ public class BackgroundScroller : MonoBehaviour
         }
 
         previousCamPos = cam.position;
-        mat.SetTextureOffset("_MainTex", new Vector2(player.transform.position.x/70f, 0));
+        mat.SetTextureOffset("_MainTex", new Vector2(player.transform.position.x/10.5f, 0));
 
 
 

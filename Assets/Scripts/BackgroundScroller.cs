@@ -53,10 +53,7 @@ public class BackgroundScroller : MonoBehaviour
         }
 
         previousCamPos = cam.position;
-        mat.SetTextureOffset("_MainTex", new Vector2(player.transform.position.x/10.5f, 0));
-
-
-
+        mat.SetTextureOffset("_MainTex", new Vector2(player.transform.position.x/10.3f, 0));
 
     }
 

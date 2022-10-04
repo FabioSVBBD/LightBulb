@@ -21,7 +21,7 @@ public class GrappleScript : MonoBehaviour {
 	private List<Vector3> pivotList;					// List of all rope bends
 	private List<bool> currentSwingDirection;           // Keeps Track of the direction of each bend
 
-	public float gravityScale = 0.7f;
+	public float gravityScale;
 
 
 	public float reelInSpeed = 1;						// Speed in which you shorten the rope

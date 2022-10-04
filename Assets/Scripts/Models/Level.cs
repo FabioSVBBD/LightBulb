@@ -31,7 +31,7 @@ internal class Level
 
         for (int i = 0; i < levelLength; i++)
         {
-            obstacles.Push(new Obstacle(2, 2, 3));
+            obstacles.Push(new Obstacle(2, 2, 4));
         }
 
         return new Level(obstacles, latency);
@@ -39,15 +39,15 @@ internal class Level
 
     public static Level CreateLevel2()
     {
-        double latency = 7;
-        int levelLength = 15;
+        double latency = 9;
+        int levelLength = 8;
         Stack<Obstacle> obstacles = new Stack<Obstacle>();
 
         for (int i = 0; i < levelLength; i++)
         {
             int width = UnityEngine.Random.Range(2, 4);
             int height = Random.Range(2, 4);
-            int y = height == 3 ? 4 : 3; // fkn random
+            int y = 4;
 
             obstacles.Push(new Obstacle(width, height, y));
         }
@@ -57,19 +57,73 @@ internal class Level
 
     public static Level CreateLevel3()
     {
-        double latency = 6;
-        int levelLength = 20;
+        double latency = 8;
+        int levelLength = 10;
         Stack<Obstacle> obstacles = new Stack<Obstacle>();
 
         for (int i = 0; i < levelLength; i++)
         {
             int width = UnityEngine.Random.Range(2, 4);
             int height = Random.Range(2, 4);
-            int y = Random.Range(0, 5); // fkn random
+            int y = Random.Range(3, 5); // fkn random
 
             obstacles.Push(new Obstacle(width, height, y));
         }
 
+        return new Level(obstacles, latency);
+    }
+
+    public static Level CreateLevel4()
+    {
+        double latency = 7;
+        int levelLength = 12;
+        Stack<Obstacle> obstacles = new Stack<Obstacle>();
+
+        for (int i = 0; i < levelLength; i++)
+        {
+            int width = Random.Range(1, 4);
+            int height = Random.Range(1, 4);
+            int y = Random.Range(2, 5);
+
+            obstacles.Push(new Obstacle(width, height, y));
+        }
+
+        return new Level(obstacles, latency);
+    }
+
+    public static Level CreateLevel5()
+    {
+        double latency = 7;
+        int levelLength = 15;
+        Stack<Obstacle> obstacles = new Stack<Obstacle>();
+
+        for (int i = 0; i < levelLength; i++)
+        {
+            int width = Random.Range(1, 6);
+            int height = Random.Range(1, 4);
+            int y = Random.Range(1, 5);
+
+            obstacles.Push(new Obstacle(width, height, y));
+        }
+
+        return new Level(obstacles, latency);
+    }
+
+    public static Level CreateLevel6()
+    {
+        double latency = 7;
+        int levelLength = 20;
+        Stack<Obstacle> obstacles = new Stack<Obstacle>();
+
+        for (int i = 0; i < levelLength; i++)
+        {
+            int width = Random.Range(1, 8);
+            int height = Random.Range(1, 5);
+            int y = 5 - height;
+
+            obstacles.Push(new Obstacle(width, height, y));
+        }
+        
         return new Level(obstacles, latency);
     }
 

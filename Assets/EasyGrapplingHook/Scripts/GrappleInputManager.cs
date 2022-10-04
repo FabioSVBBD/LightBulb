@@ -12,6 +12,8 @@ public class GrappleInputManager : MonoBehaviour {
 	[Range(0.0f,360.0f)]
 	public float angleTolerance = 90;
 	private bool isAttached = false;
+
+	public AudioSource hookSound;
 	
 	void Start()
 	{
@@ -61,6 +63,7 @@ public class GrappleInputManager : MonoBehaviour {
 			// if something is hit, and that is not the player
 			if (hit.collider != null && hit.collider.gameObject.layer != grapple.playerLayer)
 			{
+				hookSound.Play();
 				grapple.AttachRope(hit.point);
 			}
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class HomeManager : MonoBehaviour
 {
     LifeCycleManager lifeCycleManager;
+    [SerializeField] private AudioClip _clip;
 
     private void Awake()
     {
@@ -13,6 +14,7 @@ public class HomeManager : MonoBehaviour
 
     public void onStart()
     {
+        SoundManager.Instance.PlaySound(_clip);
         lifeCycleManager.State = LifeCycleManager.LifeCycleState.LevelSelection;
     }
 }

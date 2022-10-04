@@ -16,7 +16,11 @@ public class ObstacleManager : MonoBehaviour
 
     void Start()
     {
-        SpawnObject(player.transform.position.x);
+        if(Game.level.Latency > 0){
+            SpawnObject(player.transform.position.x);
+            return;
+        }
+        
     }
 
     void Update()
@@ -33,7 +37,7 @@ public class ObstacleManager : MonoBehaviour
             return;
         }
 
-        if (player.transform.position.x - latestObstacle.transform.position.x > Game.level.Latency)
+        if ((latestObstacle != null && player.transform.position.x - latestObstacle.transform.position.x > Game.level.Latency) || (latestObstacle == null && player.transform.position.x >= 30f))
         {
             if (Game.level.Obstacles.Count == 0 && !Game.level.Infinite)
             {
@@ -59,13 +63,15 @@ public class ObstacleManager : MonoBehaviour
             return;
         }
 
+        if(Game.level.Obstacles.Count > 0)
+        {
+            Obstacle newObstacle = Game.level.Obstacles.Pop();
 
-        Obstacle newObstacle = Game.level.Obstacles.Pop();
-
-        obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, newObstacle.YPos, 0), Quaternion.identity);
-        obstacle.transform.localScale = new Vector2(newObstacle.Width, newObstacle.Height);
-        
-        latestObstacle = obstacle.transform;
+            obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, newObstacle.YPos, 0), Quaternion.identity);
+            obstacle.transform.localScale = new Vector2(newObstacle.Width, newObstacle.Height);
+            
+            latestObstacle = obstacle.transform;
+        }
     }
 
     public void SpawnFinishLine(float lightPosX)

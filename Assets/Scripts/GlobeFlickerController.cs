@@ -9,6 +9,7 @@ public class GlobeFlickerController : MonoBehaviour
     float baseIntensity;
     float baseRange;
     float lowerBound;
+    float intensityThreshold;
     public float delta;
     public float pLower;
     public float pUpper;
@@ -24,6 +25,7 @@ public class GlobeFlickerController : MonoBehaviour
         baseIntensity = myLight.intensity;
         baseRange = myLight.range;
         lowerBound = baseIntensity - delta;
+        intensityThreshold = baseIntensity - delta/100;
  
     }
 
@@ -31,14 +33,27 @@ public class GlobeFlickerController : MonoBehaviour
     {
 
         if(_grapple.IsAttached()){
+            if(myLight.range < baseRange)
+            {
+                myLight.range += delta / 100;
+            }
             myLight.intensity = baseIntensity;
-            myLight.range = baseRange;
+            
         }
         else{
             // myLight.intensity = Random.Range(0f, 10f);
-            random = Random.Range(pLower, pUpper);
-            myLight.range = myLight.range - delta/1000;
-            myLight.intensity = Mathf.PingPong(Time.time*random, delta) + lowerBound;
+            if (myLight.intensity - random < myLight.intensity - intensityThreshold)
+            {
+                random = Random.Range(pLower, pUpper);
+                myLight.intensity = Mathf.PingPong(Time.time * random, delta) + lowerBound;
+                
+            }
+            else
+            {
+                myLight.intensity -= delta / 50;
+            }
+            
+            
         }
     }
 }

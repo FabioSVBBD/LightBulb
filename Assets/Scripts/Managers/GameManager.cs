@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void GamePaused()
     {
+        Player.GetComponent<GrappleInputManager>().enabled = false;
         PauseMenu.SetActive(true);
         Time.timeScale = 0;
         IsGamePaused = true;
@@ -59,14 +60,17 @@ public class GameManager : MonoBehaviour
 
     public void GameResumed()
     {
+
         PauseMenu.SetActive(false);
         Time.timeScale = 1;
         IsGamePaused = false;
+        Player.GetComponent<GrappleInputManager>().enabled = true;
 
     }
 
     public void GameOver()
     {
+        Player.GetComponent<GrappleInputManager>().enabled = false;
         Time.timeScale = 0;
         Game.Died();
         lifeCycleManager.State = LifeCycleManager.LifeCycleState.GameOver;
@@ -86,6 +90,7 @@ public class GameManager : MonoBehaviour
     
     public void QuitClicked()
     {
+        Time.timeScale = 1;
         lifeCycleManager.State = LifeCycleManager.LifeCycleState.Landed;
     }
 }

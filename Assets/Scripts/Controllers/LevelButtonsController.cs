@@ -5,6 +5,8 @@ using UnityEngine;
 public class LevelButtonsController : MonoBehaviour
 {
     [SerializeField] LevelsManager lm;
+    [SerializeField] private AudioClip _activeClip;
+    [SerializeField] private AudioClip _disabledClip;
     public int level;
     public bool active;
 
@@ -27,7 +29,14 @@ public class LevelButtonsController : MonoBehaviour
     }
     void OnMouseDown()
     {
-        if(active)
+        if (active)
+        {
+            SoundManager.Instance.PlaySound(_activeClip);
             lm.LevelSelected(level);
+        }
+        else
+        {
+            SoundManager.Instance.PlaySound(_disabledClip);
+        }
     }
 }

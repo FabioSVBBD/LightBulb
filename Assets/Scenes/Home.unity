@@ -1248,6 +1248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lm: {fileID: 1217780423}
+  _activeClip: {fileID: 8300000, guid: 68569d4332487074baa13eb7b91d14f6, type: 3}
+  _disabledClip: {fileID: 8300000, guid: b078838ea498c764a9d65c1c79925454, type: 3}
   level: 4
   active: 0
 --- !u!1 &449232737
@@ -1920,6 +1922,7 @@ MonoBehaviour:
   leftDoor: {fileID: 3822401911377567025}
   rightDoor: {fileID: 799605457}
   mainCamera: {fileID: 607521754}
+  _clip: {fileID: 8300000, guid: 5aa927d5bb982004ebdb736cdcfa2d55, type: 3}
   speed: 3
   open_x: 6.6
 --- !u!1 &585302210
@@ -3049,6 +3052,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lm: {fileID: 1217780423}
+  _activeClip: {fileID: 8300000, guid: 68569d4332487074baa13eb7b91d14f6, type: 3}
+  _disabledClip: {fileID: 8300000, guid: b078838ea498c764a9d65c1c79925454, type: 3}
   level: 3
   active: 0
 --- !u!1 &1037069034
@@ -3323,6 +3328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lm: {fileID: 1217780423}
+  _activeClip: {fileID: 8300000, guid: 68569d4332487074baa13eb7b91d14f6, type: 3}
+  _disabledClip: {fileID: 8300000, guid: b078838ea498c764a9d65c1c79925454, type: 3}
   level: 1
   active: 1
 --- !u!1 &1127393771
@@ -3731,6 +3738,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lm: {fileID: 1217780423}
+  _activeClip: {fileID: 8300000, guid: 68569d4332487074baa13eb7b91d14f6, type: 3}
+  _disabledClip: {fileID: 8300000, guid: b078838ea498c764a9d65c1c79925454, type: 3}
   level: 6
   active: 0
 --- !u!1 &1217780422
@@ -3985,6 +3994,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lm: {fileID: 1217780423}
+  _activeClip: {fileID: 8300000, guid: 68569d4332487074baa13eb7b91d14f6, type: 3}
+  _disabledClip: {fileID: 8300000, guid: b078838ea498c764a9d65c1c79925454, type: 3}
   level: 2
   active: 0
 --- !u!1 &1339529561
@@ -4716,6 +4727,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lm: {fileID: 1217780423}
+  _activeClip: {fileID: 8300000, guid: 68569d4332487074baa13eb7b91d14f6, type: 3}
+  _disabledClip: {fileID: 8300000, guid: b078838ea498c764a9d65c1c79925454, type: 3}
   level: 5
   active: 0
 --- !u!1 &1619727253
@@ -5376,9 +5389,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 330c723fc9c50dc44875abbe5f8580e8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2f25e24e01fe1c048a1cef7c5a0f485a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.03
+  m_Volume: 0.015
   m_Pitch: 1
   Loop: 0
   Mute: 0

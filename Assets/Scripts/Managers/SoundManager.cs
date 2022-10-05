@@ -24,13 +24,14 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySound(AudioClip clip)
     {
+        _effectsSource.volume = 0.07f;
         _effectsSource.PlayOneShot(clip);
     }
 
 
     public void PlayShatter(AudioClip clip)
     {
-        AudioListener.volume = 0.08f;
+        _effectsSource.volume = 0.08f;
         _effectsSource.PlayOneShot(clip);
     }
 

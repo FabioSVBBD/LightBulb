@@ -21,7 +21,6 @@ public class ObstacleManager : MonoBehaviour
 			SpawnObject(player.transform.position.x);
 			return;
 		}
-
 	}
 
 	void Update()

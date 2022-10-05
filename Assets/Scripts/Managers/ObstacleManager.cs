@@ -26,6 +26,10 @@ public class ObstacleManager : MonoBehaviour
             if (latestObstacle.transform.position.x <= player.transform.position.x)
             {
                 completionPanel.SetActive(true);
+
+                if (Game.highestLevelPassed < Game.CurrentLevel)
+                    Game.highestLevelPassed = Game.CurrentLevel;
+
                 IsFinishing = false;
                 Time.timeScale = 0;
             }

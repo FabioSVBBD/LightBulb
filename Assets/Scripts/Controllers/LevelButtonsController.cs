@@ -8,7 +8,6 @@ public class LevelButtonsController : MonoBehaviour
     [SerializeField] private AudioClip _activeClip;
     [SerializeField] private AudioClip _disabledClip;
     public int level;
-    public bool active;
 
     private Material m_Material;
 
@@ -16,7 +15,7 @@ public class LevelButtonsController : MonoBehaviour
     {
         m_Material = GetComponent<Renderer>().material;
 
-        if (active)
+        if (Game.highestLevelPassed + 1 >= level)
         {
             m_Material.SetColor("_EmissionColor", Color.white);
             m_Material.EnableKeyword("_EMISSION");
@@ -25,7 +24,7 @@ public class LevelButtonsController : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (active)
+        if (Game.highestLevelPassed + 1 >= level)
         {
             m_Material.SetColor("_EmissionColor", new Color(0.5f, 0.5f, 0.5f, 1.0f));
         }
@@ -33,7 +32,7 @@ public class LevelButtonsController : MonoBehaviour
 
     void OnMouseExit()
     {
-        if (active)
+        if (Game.highestLevelPassed + 1 >= level)
         {
             m_Material.SetColor("_EmissionColor", Color.white);
         }
@@ -42,7 +41,7 @@ public class LevelButtonsController : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (active)
+        if (Game.highestLevelPassed + 1 >= level)
         {
             SoundManager.Instance.PlaySound(_activeClip);
             lm.LevelSelected(level);

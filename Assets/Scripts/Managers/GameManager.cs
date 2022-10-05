@@ -73,11 +73,12 @@ public class GameManager : MonoBehaviour
         Player.GetComponent<GrappleInputManager>().enabled = false;
         Time.timeScale = 0;
         Game.Died();
+
         lifeCycleManager.State = LifeCycleManager.LifeCycleState.GameOver;
     }
 
     public void NextClicked()
-    {
+    {   
         Game.level = Level.CreateLevel(Game.CurrentLevel + 1); // yea not good but whatever. This will support 2billion levels
         // Reload scene with new level (does cleanup)
         SceneLoader.LoadScene(lifeCycleManager.GetScene());
@@ -85,12 +86,23 @@ public class GameManager : MonoBehaviour
 
     public void LevelsClicked()
     {
-        lifeCycleManager.State = LifeCycleManager.LifeCycleState.LevelSelection;
+        Time.timeScale = 1;
+        lifeCycleManager.AtLevel = true;
+        lifeCycleManager.State = LifeCycleManager.LifeCycleState.Landed;
     }
     
     public void QuitClicked()
     {
         Time.timeScale = 1;
+        lifeCycleManager.AtLevel = false;
         lifeCycleManager.State = LifeCycleManager.LifeCycleState.Landed;
+    }
+
+    public void onRestart()
+    {
+        // clickSound.Play();
+        // SoundManager.Instance.PlaySound(_clip);
+        lifeCycleManager.State = LifeCycleManager.LifeCycleState.Playing;
+        Game.level = Level.CreateLevel(Game.CurrentLevel);
     }
 }

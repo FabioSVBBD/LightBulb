@@ -25,8 +25,21 @@ public class LevelButtonsController : MonoBehaviour
 
     private void OnMouseOver()
     {
-
+        if (active)
+        {
+            m_Material.SetColor("_EmissionColor", new Color(0.5f, 0.5f, 0.5f, 1.0f));
+        }
     }
+
+    void OnMouseExit()
+    {
+        if (active)
+        {
+            m_Material.SetColor("_EmissionColor", Color.white);
+        }
+    }
+
+
     void OnMouseDown()
     {
         if (active)

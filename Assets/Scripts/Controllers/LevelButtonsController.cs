@@ -5,8 +5,9 @@ using UnityEngine;
 public class LevelButtonsController : MonoBehaviour
 {
     [SerializeField] LevelsManager lm;
+    [SerializeField] private AudioClip _activeClip;
+    [SerializeField] private AudioClip _disabledClip;
     public int level;
-    public bool active;
 
     private Material m_Material;
 
@@ -23,12 +24,31 @@ public class LevelButtonsController : MonoBehaviour
 
     private void OnMouseOver()
     {
-
+        if (Game.highestLevelPassed + 1 >= level)
+        {
+            m_Material.SetColor("_EmissionColor", new Color(0.5f, 0.5f, 0.5f, 1.0f));
+        }
     }
+
+    void OnMouseExit()
+    {
+        if (Game.highestLevelPassed + 1 >= level)
+        {
+            m_Material.SetColor("_EmissionColor", Color.white);
+        }
+    }
+
 
     void OnMouseDown()
     {
-        if(Game.highestLevelPassed + 1 >= level)
+        if (Game.highestLevelPassed + 1 >= level)
+        {
+            SoundManager.Instance.PlaySound(_activeClip);
             lm.LevelSelected(level);
+        }
+        else
+        {
+            SoundManager.Instance.PlaySound(_disabledClip);
+        }
     }
 }

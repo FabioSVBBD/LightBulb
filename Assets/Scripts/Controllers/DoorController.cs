@@ -9,6 +9,7 @@ public class DoorController : MonoBehaviour
     [SerializeField] GameObject leftDoor;
     [SerializeField] GameObject rightDoor;
     [SerializeField] GameObject mainCamera;
+    [SerializeField] private AudioClip _clip;
 
     public float speed;
     public float open_x;
@@ -52,6 +53,7 @@ public class DoorController : MonoBehaviour
 
     private void OnMouseDown()
     {
+        SoundManager.Instance.PlaySound(_clip);
         isOpening = true;
         
     }

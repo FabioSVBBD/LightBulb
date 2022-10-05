@@ -14,7 +14,6 @@ public class CollisionDetection : MonoBehaviour
 
     private bool active = false;
 
-   // public AudioSource shatterSound;
     [SerializeField] private AudioClip _clip;
 
     // Start is called before the first frame update
@@ -39,8 +38,7 @@ public class CollisionDetection : MonoBehaviour
 
     private void EndGame()
     {
-       // shatterSound.Play();
-        SoundManager.Instance.PlaySound(_clip);
+        SoundManager.Instance.PlayShatter(_clip);
         gameManager.GlowbCollided();
         
     }

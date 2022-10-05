@@ -8,8 +8,12 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject Player;
 	[SerializeField] TMPro.TMP_Text scoreField;
 	[SerializeField] GameObject PauseMenu;
+	[SerializeField] GameObject GameOverMenu;
+	[SerializeField] TMPro.TMP_Text finalScoreText;
 
 	private bool IsGamePaused;
+
+
 
 	private void Awake()
 	{
@@ -70,13 +74,16 @@ public class GameManager : MonoBehaviour
 
 	public void GameOver()
 	{
+
 		Player.GetComponent<GrappleInputManager>().enabled = false;
 		Time.timeScale = 0;
 		Game.Died();
 
 		lifeCycleManager.AtLevel = false;
 
-		lifeCycleManager.State = LifeCycleManager.LifeCycleState.GameOver;
+		scoreField.enabled = false;
+		finalScoreText.text = Game.Score.ToString();
+		GameOverMenu.SetActive(true);
 	}
 
 	public void NextClicked()

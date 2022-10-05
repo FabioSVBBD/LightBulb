@@ -4,77 +4,88 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-    [SerializeField] GameObject prefab;
-    [SerializeField] GameObject finishLine;
-    [SerializeField] GameObject completionPanel;
+	[SerializeField] GameObject player;
+	[SerializeField] GameObject prefab;
+	[SerializeField] GameObject finishLine;
+	[SerializeField] GameObject completionPanel;
 
-    Transform latestObstacle;
-    GameObject obstacle;
+	Transform latestObstacle;
+	GameObject obstacle;
 
-    private bool IsFinishing = false;
+	private bool IsFinishing = false;
 
-    void Start()
-    {
-        SpawnObject(player.transform.position.x);
-    }
+	void Start()
+	{
+		if (Game.level.Latency > 0)
+		{
+			SpawnObject(player.transform.position.x);
+			return;
+		}
 
-    void Update()
-    {
-        if (IsFinishing)
-        {
-            if (latestObstacle.transform.position.x <= player.transform.position.x)
-            {
-                completionPanel.SetActive(true);
+	}
 
-                if (Game.highestLevelPassed < Game.CurrentLevel)
-                    Game.highestLevelPassed = Game.CurrentLevel;
+	void Update()
+	{
+		if (IsFinishing)
+		{
+			if (latestObstacle.transform.position.x <= player.transform.position.x)
+			{
+				completionPanel.SetActive(true);
 
-                IsFinishing = false;
-                Time.timeScale = 0;
-            }
+				if (Game.highestLevelPassed < Game.CurrentLevel)
+					Game.highestLevelPassed = Game.CurrentLevel;
 
-            return;
-        }
+				IsFinishing = false;
+				Time.timeScale = 0;
+			}
 
-        if (player.transform.position.x - latestObstacle.transform.position.x > Game.level.Latency)
-        {
-            if (Game.level.Obstacles.Count == 0 && !Game.level.Infinite)
-            {
-                SpawnFinishLine(player.transform.position.x);
-                IsFinishing = true;
-                return;
-            }
+			return;
+		}
 
-            SpawnObject(player.transform.position.x);
-        }
-    }
+		if ((latestObstacle != null && player.transform.position.x - latestObstacle.transform.position.x > Game.level.Latency) || (latestObstacle == null && player.transform.position.x >= 30f))
+		{
+			if (Game.level.Obstacles.Count == 0 && !Game.level.Infinite)
+			{
+				SpawnFinishLine(player.transform.position.x);
+				IsFinishing = true;
+				return;
+			}
 
-    public void SpawnObject(float lightPosX)
-    {
-        if (Game.level.Infinite)
-        {
-            Obstacle infiniteObstacle = new Obstacle(Random.Range(1, 4), Random.Range(1, 3), Random.Range(-1, 6));
+			SpawnObject(player.transform.position.x);
+		}
+	}
 
-            obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, infiniteObstacle.YPos, 0), Quaternion.identity);
-            obstacle.transform.localScale = new Vector3(infiniteObstacle.Width, infiniteObstacle.Height,10);
+	public void SpawnObject(float lightPosX)
+	{
 
-            latestObstacle = obstacle.transform;
-            return;
-        }
+		if (Game.level.Infinite)
+		{
+			Obstacle infiniteObstacle = new Obstacle(Random.Range(1, 4), Random.Range(1, 3), Random.Range(-1, 6));
 
 
-        Obstacle newObstacle = Game.level.Obstacles.Pop();
+			obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, infiniteObstacle.YPos, 0), Quaternion.identity);
+			obstacle.transform.localScale = new Vector3(infiniteObstacle.Width, infiniteObstacle.Height, 10);
 
-        obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, newObstacle.YPos, 0), Quaternion.identity);
-        obstacle.transform.localScale = new Vector3(newObstacle.Width, newObstacle.Height, 10);
-        
-        latestObstacle = obstacle.transform;
-    }
+			latestObstacle = obstacle.transform;
+			return;
+		}
 
-    public void SpawnFinishLine(float lightPosX)
-    {
-        obstacle = Instantiate(finishLine, new Vector3(lightPosX + 15, finishLine.transform.position.y, -1), Quaternion.identity);
-        latestObstacle = obstacle.transform;
-    }
+
+		if (Game.level.Obstacles.Count > 0)
+		{
+			Obstacle newObstacle = Game.level.Obstacles.Pop();
+
+			obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, newObstacle.YPos, 0), Quaternion.identity);
+			obstacle.transform.localScale = new Vector3(newObstacle.Width, newObstacle.Height, 10);
+
+			latestObstacle = obstacle.transform;
+		}
+
+	}
+
+	public void SpawnFinishLine(float lightPosX)
+	{
+		obstacle = Instantiate(finishLine, new Vector3(lightPosX + 15, finishLine.transform.position.y, -1), Quaternion.identity);
+		latestObstacle = obstacle.transform;
+	}
 }

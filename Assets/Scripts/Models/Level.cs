@@ -23,6 +23,15 @@ internal class Level
         Latency = latency;
     }
 
+    public static Level CreateLevel0()
+    {
+        double latency = 0;
+        int levelLength = 1;
+        Stack<Obstacle> obstacles = new Stack<Obstacle>();
+
+        return new Level(obstacles, latency);
+    }
+
     public static Level CreateLevel1()
     {
         double latency = 10;
@@ -137,7 +146,8 @@ internal class Level
         Game.CurrentLevel = index;
 
         return index switch
-        {
+        {   
+            0 => CreateLevel0(),
             1 => CreateLevel1(),
             2 => CreateLevel2(),
             3 => CreateLevel3(),

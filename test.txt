@@ -1,0 +1,22 @@
+[13:52] Jaco Venter
+WORKDAY(I2,
+    INT(G2/8)+IF(TIME(HOUR(I2),MINUTE(I2),SECOND(I2)) + TIME(MOD(G2,8),MOD(MOD(G2,8),1) *60,0) >
+$N$2,1,0),$N$3)+IF(TIME(HOUR(I2),MINUTE(I2),SECOND(I2))+TIME(MOD(G2,8),MOD(MOD(G2,8),1)*60,0)>$N$2,$N$1
++TIME(HOUR(I2),MINUTE(I2),SECOND(I2))+TIME(MOD(G2,8),MOD(MOD(G2,8),1)*60,0)-$N$2,TIME(HOUR(I2),MINUTE(I2),SECOND(I2))
++TIME(MOD(G2,8),MOD(MOD(G2,8),1)*60,0)) 
+
+
+
+Time of start I
+Hours in activity G2
+N = number of hours in the day
+workdays = hours in activity/8
+
+nearest working day = 
+
+    number of working days in alloc hours
+    + 1 or 0  (if ( time of start + (hours, minutes, 1) in activity * 60) is greater than number of hours in the day then return 1
+    
+
+
+

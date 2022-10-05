@@ -130,7 +130,7 @@ internal class Level
             int height = Random.Range(1, 5);
             int y = 5 - height;
 
-            obstacles.Push(new Obstacle(width, height, y));
+            obstacles.Push(new Obstacle(width, height, y)); 
         }
         
         return new Level(obstacles, latency);
@@ -151,6 +151,9 @@ internal class Level
             1 => CreateLevel1(),
             2 => CreateLevel2(),
             3 => CreateLevel3(),
+            4 => CreateLevel4(),
+            5 => CreateLevel5(),
+            6 => CreateLevel6(),
             _ => CreateEndlessMode(),
         };
     }

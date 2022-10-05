@@ -71,8 +71,9 @@ public class GrappleInputManager : MonoBehaviour {
 		}
 
 		// Setting reeling and paying out
-		grapple.reeling_in = Input.GetKey(KeyCode.Z);
-		grapple.paying_out = Input.GetKey(KeyCode.X);
+		grapple.reeling_in = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+		grapple.paying_out = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+
 
 	}
 }

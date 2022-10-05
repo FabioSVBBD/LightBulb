@@ -16,6 +16,7 @@ public class GameOverManager : MonoBehaviour
     public void onHome()
     {
         //clickSound.Play();
+        Time.timeScale = 1;
         SoundManager.Instance.PlaySound(_clip);
         lifeCycleManager.State = LifeCycleManager.LifeCycleState.Landed;
     }

@@ -1,5 +1,6 @@
 ﻿internal static class Game
 {
+    public static int highestLevelPassed = 0;
     public static Level level;
     private static int score;
     public static int CurrentLevel = 1;

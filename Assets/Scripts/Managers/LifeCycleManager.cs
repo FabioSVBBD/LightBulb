@@ -9,6 +9,7 @@ public class LifeCycleManager
     {
         Landed, LevelSelection, Playing, GameOver
     }
+    public bool AtLevel = false;
 
     private LifeCycleState _state;
     public LifeCycleState State

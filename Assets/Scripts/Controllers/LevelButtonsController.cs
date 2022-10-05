@@ -14,7 +14,7 @@ public class LevelButtonsController : MonoBehaviour
     {
         m_Material = GetComponent<Renderer>().material;
 
-        if (active)
+        if (Game.highestLevelPassed + 1 >= level)
         {
             m_Material.SetColor("_EmissionColor", Color.white);
             m_Material.EnableKeyword("_EMISSION");
@@ -25,9 +25,10 @@ public class LevelButtonsController : MonoBehaviour
     {
 
     }
+
     void OnMouseDown()
     {
-        if(active)
+        if(Game.highestLevelPassed + 1 >= level)
             lm.LevelSelected(level);
     }
 }

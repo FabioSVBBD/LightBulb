@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
+    private LifeCycleManager lifeCycleManager;
+
     [SerializeField] GameObject leftDoor;
     [SerializeField] GameObject rightDoor;
     [SerializeField] GameObject mainCamera;
@@ -25,6 +27,13 @@ public class DoorController : MonoBehaviour
         Debug.Log(leftStartPos);
         m_Material = GetComponent<Renderer>().material;
         m_Material.SetColor("_Color", Color.white);
+
+        lifeCycleManager = LifeCycleManager.Instance();
+
+        if (lifeCycleManager.AtLevel)
+        {
+            isOpening = true;
+        }
     }
     void Update()
     {

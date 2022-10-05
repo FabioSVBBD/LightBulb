@@ -811,6 +811,7 @@ MonoBehaviour:
   Player: {fileID: 3544923223102012245}
   scoreField: {fileID: 1158899467}
   PauseMenu: {fileID: 1283929541}
+  GameOverMenu: {fileID: 0}
 --- !u!4 &481412381
 Transform:
   m_ObjectHideFlags: 0
@@ -1515,7 +1516,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 481412380}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: GameOver
+        m_MethodName: QuitClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

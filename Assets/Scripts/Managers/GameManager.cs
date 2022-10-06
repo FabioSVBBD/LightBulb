@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] TMPro.TMP_Text scoreField;
 	[SerializeField] GameObject PauseMenu;
 	[SerializeField] GameObject GameOverMenu;
+	[SerializeField] GameObject fadePanel;
 	[SerializeField] TMPro.TMP_Text finalScoreText;
 
 	[SerializeField] GameObject Roof;
@@ -18,11 +20,26 @@ public class GameManager : MonoBehaviour
 	[SerializeField] LevelMaterial[] materials = new LevelMaterial[5];
 
 	private bool IsGamePaused;
+	private float currentAlpha;
 
+	private void UpdateImageAlpha(float alpha)
+    {
+		Image image = fadePanel.GetComponent<Image>();
+		var temp = image.color;
+		temp.a = alpha;
+		image.color = temp;
+		currentAlpha = image.color.a;
 
+		if (currentAlpha <= 0)
+			fadePanel.SetActive(false);
+	}
 
 	private void Awake()
 	{
+		currentAlpha = 1;
+		Image image = fadePanel.GetComponent<Image>();
+		UpdateImageAlpha(currentAlpha);
+
 		IsGamePaused = false;
 		gameManager = this;
 		lifeCycleManager = LifeCycleManager.Instance();
@@ -47,6 +64,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
 	{
+		if (currentAlpha > 0)
+        {
+			UpdateImageAlpha(currentAlpha - 0.02f);
+		}
+
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			if (!IsGamePaused)

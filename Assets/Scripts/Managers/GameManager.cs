@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
 		if (Game.IsAlive)
 		{
 			Player.SetActive(false);
-			Invoke("GameOver", 2f);
+			Invoke("GameOver", 1f);
 		}
 
 	}

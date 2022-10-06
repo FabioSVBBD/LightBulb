@@ -33,6 +33,7 @@ public class GrappleInputManager : MonoBehaviour {
             {
 				grapple.ReleaseRope();
 				isAttached = false;
+				Game.isConnected = false;
 				return;
 			}
 
@@ -63,11 +64,13 @@ public class GrappleInputManager : MonoBehaviour {
 			// if something is hit, and that is not the player
 			if (hit.collider != null && hit.collider.gameObject.layer != grapple.playerLayer)
 			{
+				Game.lastConnectedObject = hit.collider.gameObject;
 				hookSound.Play();
 				grapple.AttachRope(hit.point);
 			}
 
 			isAttached = true;
+			Game.isConnected = true;
 		}
 
 		// Setting reeling and paying out

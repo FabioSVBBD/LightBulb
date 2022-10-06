@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
 	{
+		if (Game.Charge == Game.MIN_CHARGE)
+        {
+			GlowbCollided();
+        }
+
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			if (!IsGamePaused)
@@ -53,6 +58,18 @@ public class GameManager : MonoBehaviour
 
 		Game.Score = (int)Player.transform.position.x;
 		scoreField.text = Game.Score.ToString();
+
+		if (Game.lastConnectedObject != null && Game.isConnected && Game.lastConnectedObject == Roof)
+		{
+			Game.Charge += 0.1f;
+		} else
+        {
+			Game.Charge -= 0.05f;
+        }
+
+		// TODO:: Update the glowb light as per charge left
+
+		Debug.Log($"Charge left: {Game.Charge}");
 	}
 
 	public void GlowbCollided()

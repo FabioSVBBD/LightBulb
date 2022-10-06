@@ -11,13 +11,13 @@ public class LifeCycleManager
     }
     public bool AtLevel = false;
 
-    private LifeCycleState _state;
+    private LifeCycleState _state = LifeCycleState.Landed;
     public LifeCycleState State
     {
         get { return _state; }
         set
         {
-            if (_state != value)
+            if (StateSceneMap != null)
             {
                 _state = value;
                 SceneLoader.LoadScene(GetScene());

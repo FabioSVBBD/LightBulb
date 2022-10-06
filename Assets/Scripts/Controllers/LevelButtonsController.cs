@@ -17,8 +17,6 @@ public class LevelButtonsController : MonoBehaviour
 
 		if (Game.highestLevelPassed + 1 >= level)
 		{
-			Debug.Log($"Highest level passed: {Game.highestLevelPassed}");
-
 			m_Material.SetColor("_EmissionColor", Color.white);
 			m_Material.EnableKeyword("_EMISSION");
 		}

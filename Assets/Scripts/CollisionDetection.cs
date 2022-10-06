@@ -40,13 +40,9 @@ public class CollisionDetection : MonoBehaviour
     {
         SoundManager.Instance.PlayShatter(_clip);
 
-        Invoke("end", 0.5f);
-        
-        
-    }
-    private void End()
-    {
         gameManager.GlowbCollided();
+
+
     }
 }
 

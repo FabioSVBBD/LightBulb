@@ -31,7 +31,12 @@ public class GameManager : MonoBehaviour
 		currentAlpha = image.color.a;
 
 		if (currentAlpha <= 0)
+        {
 			fadePanel.SetActive(false);
+			Time.timeScale = 1;
+		}
+
+			
 	}
 
 	private void Awake()
@@ -50,7 +55,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		Game.Start();
-		Time.timeScale = 1;
+		Time.timeScale = 0;
 	}
 
     private void Start()

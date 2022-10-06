@@ -119,7 +119,6 @@ public class GameManager : MonoBehaviour
 	{
 		Time.timeScale = 1;
 		lifeCycleManager.AtLevel = false;
-		Debug.Log($"Life cycle manager {lifeCycleManager.AtLevel}");
 		lifeCycleManager.State = LifeCycleManager.LifeCycleState.Landed;
 	}
 

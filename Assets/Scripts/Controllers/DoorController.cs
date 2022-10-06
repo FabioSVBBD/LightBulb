@@ -25,7 +25,6 @@ public class DoorController : MonoBehaviour
     {
         leftStartPos = leftDoor.transform.position;
         rightStartPos = rightDoor.transform.position;
-        Debug.Log(leftStartPos);
         m_Material = GetComponent<Renderer>().material;
         m_Material.SetColor("_Color", Color.white);
 

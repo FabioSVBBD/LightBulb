@@ -21,7 +21,6 @@ public class ObstacleManager : MonoBehaviour
 			SpawnObject(player.transform.position.x);
 			return;
 		}
-
 	}
 
 	void Update()
@@ -76,7 +75,7 @@ public class ObstacleManager : MonoBehaviour
 			Obstacle newObstacle = Game.level.Obstacles.Pop();
 
 			obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, newObstacle.YPos, 0), Quaternion.identity);
-			obstacle.transform.localScale = new Vector3(newObstacle.Width, newObstacle.Height, 10);
+			obstacle.transform.localScale = new Vector3(newObstacle.Width, newObstacle.Height, 6);
 
 			latestObstacle = obstacle.transform;
 		}

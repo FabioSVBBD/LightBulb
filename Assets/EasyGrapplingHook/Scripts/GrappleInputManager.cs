@@ -37,7 +37,7 @@ public class GrappleInputManager : MonoBehaviour {
 			}
 
 			// Find mouse position
-			Vector3 mouseInput = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
+			Vector3 mouseInput = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 6);
 			Vector2 mouseClick = cam.ScreenToWorldPoint(mouseInput);
 
 			// Find ray direction and raycast

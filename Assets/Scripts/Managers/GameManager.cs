@@ -11,6 +11,12 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject GameOverMenu;
 	[SerializeField] TMPro.TMP_Text finalScoreText;
 
+	[SerializeField] GameObject Roof;
+	[SerializeField] GameObject Background;
+	[SerializeField] GameObject Floor;
+
+	[SerializeField] LevelMaterial[] materials = new LevelMaterial[5];
+
 	private bool IsGamePaused;
 
 
@@ -30,7 +36,16 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 1;
 	}
 
-	private void Update()
+    private void Start()
+    {
+		int index = Game.CurrentLevel <= 0 || Game.CurrentLevel > 6 ? 0 : Game.CurrentLevel - 1;
+
+		Roof.GetComponent<Renderer>().material = materials[index].Roof;
+		Background.GetComponent<Renderer>().material = materials[index].Background;
+		Floor.GetComponent<Renderer>().material = materials[index].Floor;
+    }
+
+    private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{

@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
 	{
-		if (Game.Charge == Game.MIN_CHARGE)
+		if (Game.Charge == Game.MIN_CHARGE && !IsGamePaused)
         {
 			GlowbCollided();
         }
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 		Game.Score = (int)Player.transform.position.x;
 		scoreField.text = Game.Score.ToString();
 
-		if (Game.lastConnectedObject != null && Game.isConnected && Game.lastConnectedObject == Roof)
+		if (Game.lastConnectedObject != null && Game.isConnected && Game.lastConnectedObject == Roof && !IsGamePaused)
 		{
 			Game.Charge += 0.1f;
 		} else

@@ -48,7 +48,9 @@ public class DoorController : MonoBehaviour
             isOpening = false;
         }
         
+        
     }
+
 
     private void OnMouseDown()
     {

@@ -31,7 +31,7 @@ public class CollisionDetection : MonoBehaviour
             active = true;
             Instantiate(breakVersion, transform.position, transform.rotation);
             rb.AddExplosionForce(5f, Vector3.zero, 2f);
-            Invoke("EndGame", 0.01f);
+            Invoke("EndGame", 0.02f);
           
         }
     }
@@ -39,8 +39,10 @@ public class CollisionDetection : MonoBehaviour
     private void EndGame()
     {
         SoundManager.Instance.PlayShatter(_clip);
+
         gameManager.GlowbCollided();
-        
+
+
     }
 }
 

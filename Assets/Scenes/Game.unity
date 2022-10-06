@@ -993,24 +993,31 @@ MonoBehaviour:
   - Roof: {fileID: 2100000, guid: 147b25a9a139eda47944dd273c472817, type: 2}
     Background: {fileID: 2100000, guid: 60abf6318217c6146b74b98728ab172a, type: 2}
     Floor: {fileID: 2100000, guid: 0b4c431f60c893c48a5062cf351a3bdf, type: 2}
+    Obstacle: {fileID: 0}
   - Roof: {fileID: 2100000, guid: b0f1e29d66d9f0f48983a5cbb2fd87cb, type: 2}
     Background: {fileID: 2100000, guid: 593bb56182b21214c988e6a7fdf2e240, type: 2}
     Floor: {fileID: 2100000, guid: fce839ed2f69f6445a5b88cfe44e908a, type: 2}
+    Obstacle: {fileID: 0}
   - Roof: {fileID: 2100000, guid: e29ffbe4eed106a4db058c30038d8d58, type: 2}
     Background: {fileID: 2100000, guid: 7d1e33af67b84fb459cbdbc8ed8f09ad, type: 2}
     Floor: {fileID: 2100000, guid: 248d1b5f921b7394a86061dff4090dc2, type: 2}
+    Obstacle: {fileID: 0}
   - Roof: {fileID: 2100000, guid: 147b25a9a139eda47944dd273c472817, type: 2}
     Background: {fileID: 2100000, guid: f4db012e4eb585e43a27161f06be94bc, type: 2}
     Floor: {fileID: 2100000, guid: fad7dc2a8217c874daf0ba40bec27711, type: 2}
+    Obstacle: {fileID: 0}
   - Roof: {fileID: 2100000, guid: fa1f460b3ccf5e947b67045ae2626747, type: 2}
     Background: {fileID: 2100000, guid: fa1f460b3ccf5e947b67045ae2626747, type: 2}
     Floor: {fileID: 2100000, guid: 969d1ef6f15c8dd4e93fa3bd0408cd69, type: 2}
+    Obstacle: {fileID: 0}
   - Roof: {fileID: 2100000, guid: e7ef0045ea593a547b7b50d5e2e09f85, type: 2}
     Background: {fileID: 2100000, guid: 047dcdebae2156349b81dcd78f60bf86, type: 2}
     Floor: {fileID: 2100000, guid: 1940bef3e9e3bd74790200f6978453a5, type: 2}
+    Obstacle: {fileID: 0}
   - Roof: {fileID: 2100000, guid: 7fb4a524346c52849a9399fdf918bf4a, type: 2}
     Background: {fileID: 2100000, guid: 21c1d54aaeb9187428e375e48ca0d50f, type: 2}
     Floor: {fileID: 2100000, guid: 1940bef3e9e3bd74790200f6978453a5, type: 2}
+    Obstacle: {fileID: 0}
 --- !u!4 &481412381
 Transform:
   m_ObjectHideFlags: 0
@@ -3733,6 +3740,35 @@ MonoBehaviour:
   prefab: {fileID: 8136614970927819212, guid: f5f8cce820708f9459f28a4fec362c84, type: 3}
   finishLine: {fileID: 783926016216795810, guid: bf0d1b889728d8e4e95d3fc0ad340504, type: 3}
   completionPanel: {fileID: 1344338213}
+  levelMaterials:
+  - Roof: {fileID: 2100000, guid: c53e4168218c1e24e8a9a9bc8ba6900e, type: 2}
+    Background: {fileID: 2100000, guid: c53e4168218c1e24e8a9a9bc8ba6900e, type: 2}
+    Floor: {fileID: 2100000, guid: c53e4168218c1e24e8a9a9bc8ba6900e, type: 2}
+    Obstacle: {fileID: 2100000, guid: c53e4168218c1e24e8a9a9bc8ba6900e, type: 2}
+  - Roof: {fileID: 2100000, guid: c5410b7c35a88a74895f0f581ed02c3c, type: 2}
+    Background: {fileID: 2100000, guid: c5410b7c35a88a74895f0f581ed02c3c, type: 2}
+    Floor: {fileID: 2100000, guid: c5410b7c35a88a74895f0f581ed02c3c, type: 2}
+    Obstacle: {fileID: 2100000, guid: c5410b7c35a88a74895f0f581ed02c3c, type: 2}
+  - Roof: {fileID: 2100000, guid: e9ef63d504bf0aa42b935a064621b5f0, type: 2}
+    Background: {fileID: 2100000, guid: e9ef63d504bf0aa42b935a064621b5f0, type: 2}
+    Floor: {fileID: 2100000, guid: e9ef63d504bf0aa42b935a064621b5f0, type: 2}
+    Obstacle: {fileID: 2100000, guid: e9ef63d504bf0aa42b935a064621b5f0, type: 2}
+  - Roof: {fileID: 2100000, guid: c53e4168218c1e24e8a9a9bc8ba6900e, type: 2}
+    Background: {fileID: 2100000, guid: c53e4168218c1e24e8a9a9bc8ba6900e, type: 2}
+    Floor: {fileID: 2100000, guid: c53e4168218c1e24e8a9a9bc8ba6900e, type: 2}
+    Obstacle: {fileID: 2100000, guid: c53e4168218c1e24e8a9a9bc8ba6900e, type: 2}
+  - Roof: {fileID: 2100000, guid: b865108c91f101849bf44843e9464241, type: 2}
+    Background: {fileID: 2100000, guid: b865108c91f101849bf44843e9464241, type: 2}
+    Floor: {fileID: 2100000, guid: b865108c91f101849bf44843e9464241, type: 2}
+    Obstacle: {fileID: 2100000, guid: b865108c91f101849bf44843e9464241, type: 2}
+  - Roof: {fileID: 2100000, guid: b865108c91f101849bf44843e9464241, type: 2}
+    Background: {fileID: 2100000, guid: dfab26bfe0e26fe4485952cf19f22476, type: 2}
+    Floor: {fileID: 2100000, guid: dfab26bfe0e26fe4485952cf19f22476, type: 2}
+    Obstacle: {fileID: 2100000, guid: dfab26bfe0e26fe4485952cf19f22476, type: 2}
+  - Roof: {fileID: 2100000, guid: dfab26bfe0e26fe4485952cf19f22476, type: 2}
+    Background: {fileID: 2100000, guid: dfab26bfe0e26fe4485952cf19f22476, type: 2}
+    Floor: {fileID: 2100000, guid: dfab26bfe0e26fe4485952cf19f22476, type: 2}
+    Obstacle: {fileID: 2100000, guid: dfab26bfe0e26fe4485952cf19f22476, type: 2}
 --- !u!4 &1454000897
 Transform:
   m_ObjectHideFlags: 0

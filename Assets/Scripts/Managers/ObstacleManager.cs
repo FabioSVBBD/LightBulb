@@ -63,7 +63,7 @@ public class ObstacleManager : MonoBehaviour
 
 
 			obstacle = Instantiate(prefab, new Vector3(lightPosX + 15, infiniteObstacle.YPos, 0), Quaternion.identity);
-			obstacle.transform.localScale = new Vector3(infiniteObstacle.Width, infiniteObstacle.Height, 6);
+			obstacle.transform.localScale = new Vector3(infiniteObstacle.Width, infiniteObstacle.Height, 10);
 
 			latestObstacle = obstacle.transform;
 			return;

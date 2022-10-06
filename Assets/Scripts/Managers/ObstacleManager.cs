@@ -8,6 +8,7 @@ public class ObstacleManager : MonoBehaviour
 	[SerializeField] GameObject prefab;
 	[SerializeField] GameObject finishLine;
 	[SerializeField] GameObject completionPanel;
+	[SerializeField] LevelMaterial[] levelMaterials = new LevelMaterial[5];
 
 	Transform latestObstacle;
 	GameObject obstacle;
@@ -18,6 +19,8 @@ public class ObstacleManager : MonoBehaviour
 	{
 		if (Game.level.Latency > 0)
 		{
+			int index = Game.CurrentLevel <= 0 || Game.CurrentLevel > 6 ? 0 : Game.CurrentLevel - 1;
+			prefab.GetComponent<Renderer>().material = levelMaterials[index].Obstacle;
 			SpawnObject(player.transform.position.x);
 			return;
 		}

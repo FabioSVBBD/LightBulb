@@ -37,7 +37,7 @@ public class DoorController : MonoBehaviour
     }
     void Update()
     {
-        if (isOpening && leftDoor.transform.position.x > -open_x)
+        if (mainCamera.transform.position.z <= 2f && isOpening && leftDoor.transform.position.x > -open_x)
         {
             leftDoor.transform.Translate(Vector3.left * Time.deltaTime * speed);
             rightDoor.transform.Translate(Vector3.right * Time.deltaTime * speed);
@@ -47,7 +47,7 @@ public class DoorController : MonoBehaviour
         {
             isOpening = false;
         }
-        
+      
         
     }
 
